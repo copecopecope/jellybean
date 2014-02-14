@@ -84,9 +84,69 @@ def watershed(fname):
   print contCount
 
   cv2.watershed(img,markers)
+  print markers.max()
 
-  disp_watershed(img,markers,'wshed.jpg')
+  wshed_areas = {}
+  for i in range(-1,contCount+1):
+    wshed_areas[i] = {}
+    wshed_areas[i]['x'] = []
+    wshed_areas[i]['size'] = 0
 
+  # calculate areas of watershed contours (probably inefficient)
+  
+  for i in range(h):
+    if i%50 == 0:
+      print '#'
+    for j in range(w):
+      index = markers[i,j]
+      wshed_areas[index]['x'].append([i,j])
+      wshed_areas[index]['size'] = wshed_areas[index]['size']+1
+
+  avg_area = 0
+  num_beans = 0
+
+  for i in wshed_areas:
+    area = wshed_areas[i]['size']
+    if area < 400 or area > 1000:
+      continue
+
+    max_x = -1
+    min_x = -1
+    max_y = -1
+    min_y = -1
+    for x,y in wshed_areas[i]['x']:
+      if max_x < 0 or x > max_x:
+        max_x = x
+      if min_x < 0 or x < min_x:
+        min_x = x
+      if max_y < 0 or y > max_y:
+        max_y = y
+      if min_y < 0 or y < min_y:
+        min_y = y
+    width = max_x-min_x
+    height = max_y-min_y
+
+    avg_area += area
+    num_beans += 1
+
+    print i, area, width, height
+
+  avg_area /= num_beans
+  print avg_area
+
+  # MARK: Look at the last 20 lines of code.
+  # I'm calculating all the segments found by watershed
+  # with jelly-bean sized area (400 < area < 1000).
+  # Your task: filter out the ones with non-jellybean-shaped
+  # bounding rectangles (i.e. width >> height or vice versa)
+  # then find the beans with coords at lower left and upper right of image
+  # use their areas to approx number of beans on the front 
+  # face of the cylindrical jar. Text me with questions.
+  # I can try to update the latex doc with an explanation of what
+  # we've done so far with the figure
+
+
+  # disp_watershed(img,markers,'wshed.jpg')
   # cv2.imshow('test', mixed)
   # cv2.waitKey()
 
