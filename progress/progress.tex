@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{amsmath,enumerate,graphicx}
+\usepackage[margin=1in]{geometry}
 
 \begin{document}
 \title{Using volumetric stereo and pattern segmentation techniques to estimate the number of jellybeans in a jar}
@@ -31,23 +32,33 @@ Some experimentation will be in order to produce the most accurate results here,
 
 \section*{Progress}
 
-Something something watershed algorithm.
+We decided to restructure our planned milestones; instead of starting with a 3D reconstruction of a jar, we opted to implement a baseline algorithm using a single image to estimate number of jellybeans under the assumption that the picture is taken head on and the container is cylindrical. We decided to move in this direction because we wanted to see how well a baseline algorithm would perform to see what sections of our approach we should focus the most on; we also wanted to familiarize ourselves with the image processing modules of OpenCV early in the project.
+
+With that in mind, we implemented an algorithm which uses a watershed algorithm to segment the image. To preprocess the image, we first convert it to grayscale, then use adaptive histogram equalization to increase contrast locally around the jellybeans. We then dilate the image to remove noise. We then use an adaptive threshold to binarize the image and find the contours of the foreground objects, which we use as markers for the watershed algorithm. We then iterate through the segments, find the median area, and filter out outliers that deviate too far from the median (we assume these are not jellybeans).
+
+[calculating number]
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth]{../wshed.jpg}
+\includegraphics[width=0.6\textwidth]{../img/img1.jpg}
+\caption{Original image.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{../wshed.jpg}
 \caption{Watershed algorithm applied to image.}
 \end{figure}
 
-\section*{Milestones}
+\section*{Remaining Milestones}
 
-Our problem can be neatly separated into three subproblems: 3D representation of the jar, segmentation of the objects, and geometric interpretation of jellybean number. This allows us to set clear milestones over the course of the next six weeks. Ideally, we will achieve our three subgoals in roughly two week chunks.
+Now that we've implemented a baseline algorithm, we have a lot of work left to refine the process and achieve much more accurate results.
 
-\textbf{By February 13,} we plan to be able to make a 3D reconstruction of a jar using space and voxel carving.
+Our next goal is to make a 3D reconstruction of a jar using space and voxel carving.
 
-\textbf{By February 27,} we plan to be able to segment the jellybeans on the surface of the jar and estimate layering based on occlusion.
+After that, we want to write a more accurate segmentation algorithm to segment the jellybeans on the surface of the jar and estimate layering based on occlusion.
 
-\textbf{By March 19,} we will be able to estimate based on the above data and geometric modeling the number of jellybeans in the jar. 
+At project end, we will be able to estimate based on the above data and geometric modeling the number of jellybeans in the jar. 
 
 \begin{thebibliography}{9}
 

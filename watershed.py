@@ -7,7 +7,7 @@ def lut():
     lut[i] = math.floor(i/2) if i < 50 else i
   return lut.view(dtype=np.uint8)
 
-def disp_watershed(img, markers, outfile):
+def disp_watershed(img, markers, contCount, outfile):
   # color tab for watershed
   colorTab = []
   for i in range(contCount):
@@ -15,6 +15,8 @@ def disp_watershed(img, markers, outfile):
     g = math.floor(random.random()*255)
     b = math.floor(random.random()*255)
     colorTab.append([r,g,b])
+
+  h,w,_ = img.shape
 
   wshed = np.zeros((h,w,3), dtype=np.uint8)
   for i in range(h):
@@ -29,7 +31,10 @@ def disp_watershed(img, markers, outfile):
       else:
         wshed[i,j] = colorTab[index]
 
-  mixed = wshed*0.5 + img*0.5
+  img_ = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+  img_gray = cv2.cvtColor(img_,cv2.COLOR_GRAY2BGR)
+
+  mixed = wshed*0.5 + img_gray*0.5
   cv2.imwrite(outfile, mixed)
 
 
@@ -146,7 +151,7 @@ def watershed(fname):
   # we've done so far with the figure
 
 
-  # disp_watershed(img,markers,'wshed.jpg')
+  disp_watershed(img,markers,contCount,'wshed.jpg')
   # cv2.imshow('test', mixed)
   # cv2.waitKey()
 
