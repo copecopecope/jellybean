@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{amsmath,enumerate,graphicx}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=1.5in]{geometry}
 
 \begin{document}
 \title{Using volumetric stereo and pattern segmentation techniques to estimate the number of jellybeans in a jar}
@@ -36,7 +36,7 @@ We decided to restructure our planned milestones; instead of starting with a 3D 
 
 With that in mind, we implemented an algorithm which uses a watershed algorithm to segment the image. To preprocess the image, we first convert it to grayscale, then use adaptive histogram equalization to increase contrast locally around the jellybeans. We then dilate the image to remove noise. We then use an adaptive threshold to binarize the image and find the contours of the foreground objects, which we use as markers for the watershed algorithm. We then iterate through the segments, find the median area, and filter out outliers that deviate too far from the median (we assume these are not jellybeans).
 
-[calculating number]
+To calculate the number of jellybeans from the segments, currently we are using a very simple heuristic that estimates the volume of a jellybean and the cylindrical jar from their respective areas and divides one by the other. The estimated number it outputs is 2,318. The actual number we counted was 632. Obviously, the algorithm is performing poorly now, and we've only tested it on one image, but we plan on making multiple significant improvements to the baseline algorithm in the upcoming weeks.
 
 \begin{figure}[h]
 \centering
