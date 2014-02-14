@@ -107,8 +107,15 @@ def watershed(fname):
       wshed_areas[index]['x'].append([i,j])
       wshed_areas[index]['size'] = wshed_areas[index]['size']+1
 
+  # This code is so gross. Sorry Mark.
+  # Or: HERE BE MAD 8th GRADE LEVEL HEURISTICS
+
   avg_area = 0
   num_beans = 0
+  MIN_X = -1
+  MIN_Y = -1
+  MAX_X = -1
+  MAX_Y = -1
 
   for i in wshed_areas:
     area = wshed_areas[i]['size']
@@ -131,27 +138,41 @@ def watershed(fname):
     width = max_x-min_x
     height = max_y-min_y
 
-    avg_area += area
-    num_beans += 1
+    ratio = float(width)/height if width < height else float(height)/width
+    if ratio > 0.6:
+      avg_area += area
+      num_beans += 1
+      if MAX_X < 0 or max_x > MAX_X:
+        MAX_X = max_x
+      if MIN_X < 0 or (min_x < MIN_X and min_x > 100):
+        MIN_X = min_x
+      if MAX_Y < 0 or max_y > MAX_Y:
+        MAX_Y = max_y
+      if MIN_Y < 0 or min_y < MIN_Y:
+        MIN_Y = min_y
 
-    print i, area, width, height
+      print i, area, width, height, min_x, min_y
 
   avg_area /= num_beans
-  print avg_area
+  print num_beans, avg_area
+  print MIN_X, MIN_Y, MAX_X, MAX_Y
 
-  # MARK: Look at the last 20 lines of code.
-  # I'm calculating all the segments found by watershed
-  # with jelly-bean sized area (400 < area < 1000).
-  # Your task: filter out the ones with non-jellybean-shaped
-  # bounding rectangles (i.e. width >> height or vice versa)
-  # then find the beans with coords at lower left and upper right of image
-  # use their areas to approx number of beans on the front 
-  # face of the cylindrical jar. Text me with questions.
-  # I can try to update the latex doc with an explanation of what
-  # we've done so far with the figure
+  WIDTH = MAX_X-MIN_X
+  HEIGHT = MAX_Y-MIN_Y
 
+  VOLUME = (WIDTH/2)**2 * math.pi * HEIGHT
 
-  disp_watershed(img,markers,contCount,'wshed.jpg')
+  d = math.sqrt(avg_area/1.6)
+  print d
+  vol = 1.6*d * math.pi * (.5*d)**2
+
+  print vol, VOLUME
+
+  NUM_BEANS = VOLUME/vol * .8 # to account for air. MATH.
+
+  print NUM_BEANS
+
+  # disp_watershed(img,markers,contCount,'wshed.jpg')
   # cv2.imshow('test', mixed)
   # cv2.waitKey()
 
