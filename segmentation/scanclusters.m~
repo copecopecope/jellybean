@@ -1,0 +1,7 @@
+function [ clusters ] = scanclusters( w )
+
+% over one dim for now
+w
+
+end
+
