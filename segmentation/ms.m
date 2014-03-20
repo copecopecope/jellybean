@@ -5,7 +5,7 @@ climg = dispclusters(ct,cl);
 close all;
 imshow(climg);
 hold on
-plot(cs(:,2),cs(:,1),'k+');
+% plot(cs(:,2),cs(:,1),'k+');
 hold off
 figure;
 imshow(img);

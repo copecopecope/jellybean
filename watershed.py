@@ -34,7 +34,8 @@ def save_watershed(img, markers, contCount, outfile):
   img_ = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
   img_gray = cv2.cvtColor(img_,cv2.COLOR_GRAY2BGR)
 
-  mixed = wshed*0.5 + img_gray*0.5
+  # mixed = wshed*0.5 + img_gray*0.5
+  mixed = wshed
   cv2.imwrite(outfile, mixed)
 
   return mixed

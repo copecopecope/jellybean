@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  19 MAR 2014 20:02
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  19 MAR 2014 21:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -145,6 +145,28 @@ Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 \ALC@tlm=\skip46
 \algorithmicindent=\skip47
 )
+(/usr/local/texlive/2013/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen114
+\captionmargin@=\dimen115
+\captionwidth=\dimen116
+\caption@tempdima=\dimen117
+\caption@indent=\dimen118
+\caption@parindent=\dimen119
+\caption@hangindent=\dimen120
+)
+\c@ContinuedFloat=\count106
+Package caption Info: float package is loaded.
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+\c@subfigure=\count107
+\c@subtable=\count108
+)
 (./report.aux)
 \openout1 = `report.aux'.
 
@@ -163,16 +185,16 @@ LaTeX Font Info:    ... okay on input line 4.
 
 (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count106
-\scratchdimen=\dimen114
+\scratchcounter=\count109
+\scratchdimen=\dimen121
 \scratchbox=\box30
-\nofMPsegments=\count107
-\nofMParguments=\count108
+\nofMPsegments=\count110
+\nofMParguments=\count111
 \everyMPshowfont=\toks24
-\MPscratchCnt=\count109
-\MPscratchDim=\dimen115
-\MPnumerator=\count110
-\makeMPintoPDFobject=\count111
+\MPscratchCnt=\count112
+\MPscratchDim=\dimen122
+\MPnumerator=\count113
+\makeMPintoPDFobject=\count114
 \everyMPtoPDFconversion=\toks25
 ) (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
@@ -222,28 +244,48 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+
 [1
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./report.aux) ) 
+<fig/img3.jpg, id=11, 60.225pt x 62.2325pt>
+File: fig/img3.jpg Graphic file (type jpg)
+ <use fig/img3.jpg>
+Package pdftex.def Info: fig/img3.jpg used on input line 46.
+(pdftex.def)             Requested size: 117.00119pt x 120.91322pt.
+
+<fig/wshed3.jpg, id=12, 60.225pt x 62.2325pt>
+File: fig/wshed3.jpg Graphic file (type jpg)
+ <use fig/wshed3.jpg>
+Package pdftex.def Info: fig/wshed3.jpg used on input line 50.
+(pdftex.def)             Requested size: 117.00119pt x 120.91322pt.
+
+<fig/ms3.png, id=13, 222.8325pt x 229.85875pt>
+File: fig/ms3.png Graphic file (type png)
+ <use fig/ms3.png>
+Package pdftex.def Info: fig/ms3.png used on input line 54.
+(pdftex.def)             Requested size: 117.00119pt x 120.69167pt.
+ [2 <./fig/img3.jpg> <./fig/wshed3.jpg> <./fig/ms3.png>] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 2342 strings out of 493315
- 31680 string characters out of 6137904
- 93305 words of memory out of 5000000
- 5777 multiletter control sequences out of 15000+600000
- 7122 words of font info for 26 fonts, out of 8000000 for 9000
+ 3451 strings out of 493315
+ 51686 string characters out of 6137904
+ 113727 words of memory out of 5000000
+ 6872 multiletter control sequences out of 15000+600000
+ 7429 words of font info for 27 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 37i,6n,23p,232b,191s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r17.pfb>
-Output written on report.pdf (1 page, 57705 bytes).
+ 38i,7n,38p,380b,435s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/
+local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/l
+ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/lo
+cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
+l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
+texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on report.pdf (2 pages, 83269 bytes).
 PDF statistics:
- 28 PDF objects out of 1000 (max. 8388607)
- 19 compressed objects within 1 object stream
+ 34 PDF objects out of 1000 (max. 8388607)
+ 21 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
