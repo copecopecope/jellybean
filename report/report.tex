@@ -29,7 +29,7 @@ We tried multiple approaches for solving the segmentation problem. The difficult
 
 \subsubsection{Watershed}
 
-We tried a couple classic blob detectors to count the number of beans and found limited success. The watershed algorithm, developed by Lindeberg (1993), detects blobs using local extrema in the image space. The
+We tried a couple classic blob detectors to count the number of beans and found limited success. The watershed algorithm, developed by Lindeberg (1993), detects blobs using local extrema in the image space \cite{Wshed}. The
 
 \subsubsection{Mean-shift}
 
@@ -37,8 +37,6 @@ We tried a couple classic blob detectors to count the number of beans and found 
 \section{Experiments}
 
 \subsection{Segmentation}
-
-Different segmentation approaches were testing on the same small (60x60) cropped image of jellybeans (Fig.~\ref{fig:unalt}a).
 
 \begin{figure}
     \centering
@@ -58,8 +56,45 @@ Different segmentation approaches were testing on the same small (60x60) cropped
   \label{fig:unalt}
   \end{figure}
 
+Different segmentation approaches were testing on the same small (60x60) cropped image of jellybeans (Fig.~\ref{fig:unalt}a). A cropped image was used to speed up runtime while iterating through refinements; this was necessary for mean-shift, which runs in \(O(n^2)\) and has two user defined parameters that drastically affect the final result.
+
+Watershed (Fig.~\ref{fig:unalt}b) performs poorly compared to mean-shift; it is able to correctly identify one jellybean (in maroon) and otherwise grossly underestimates the number of clusters.
+
+Mean-shift (Fig.~\ref{fig:unalt}c) performs much better. However, we can see from the image that it is susceptible to noise and texture (for example, see the number of small clusters it detects on the speckled jellybean at the top) and thus overestimates the number of clusters.
+
+\begin{figure}
+    \centering
+  \begin{subfigure}[b]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{fig/ms_manyclusters}
+      \caption{All clusters.}
+  \end{subfigure}
+   \begin{subfigure}[b]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{fig/ms_someclusters}
+      \caption{Filtered clusters.}
+  \end{subfigure}
+   \begin{subfigure}[b]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{fig/ms_clustersoverimage}
+      \caption{Over image.}
+  \end{subfigure}
+  \caption{Cluster centroids found using mean-shift.}
+  \label{fig:clusters}
+  \end{figure}
+
+However, we can mitigate this overestimate by culling the clusters using a simple heuristic. We calculate the centroid, area, and variance of each cluster detected by the mean-shift algorithm. If the area is below and the variance above user-set thresholds, then the cluster is ignored. We see the results in Fig.~\ref{fig:clusters}. Fig.~\ref{fig:clusters}a shows all of the cluster centroids detected by mean-shift ($N = 78$), and Fig.~\ref{fig:clusters}b shows only the clusters with area $>$ 25 and variance $<$ 1000 ($N = 24$).  These threshold values are obviously affected by the scale of the image; however, because the noisy clusters are all small and all of the jellybeans are roughly the same size, the threshold values can be estimated roughly (i.e. they do not have to be fine-tuned for good performance.)
+
+Quantitatively, we see that this cluster detection algorithm performs remarkably well (Fig.~\ref{fig:clusters}c). It is able to correctly count all but one jellybean on the front layer, and even correctly identifies some of the occluded jellybeans below the front layer.
+
+
+
 \section{Conclusion}
 
-\section{References}
+\begin{thebibliography}{9}
+
+\bibitem{Wshed}
+	Serge Beucher,
+	\emph{Image segmentation and mathematical morphology.}
+	http://cmm.ensmp.fr/~beucher/wtshed.html, May 2010.
+
+\end{thebibliography}
 
 \end{document}
