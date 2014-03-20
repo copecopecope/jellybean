@@ -1,16 +1,16 @@
-function dispclusters( count, clusters )
-
-% colortab = zeros(count,3);
-% for i=1:count
+function [img] = dispclusters( count, clusters )
 
 [m,n] = size(clusters);
-cmap = fix(hsv(count)*255);
+cmap = hsv(count);
+cmap = cmap(randperm(count),:);
 
 img = zeros(m,n,3);
 for i=1:m
-    for j=i:n
-        img(i,j,:) = reshape(cmap(cluster
-    
+    for j=1:n
+        img(i,j,:) = reshape(cmap(clusters(i,j),:),1,1,3);
+    end
+end
 
 end
 
+ct

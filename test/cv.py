@@ -1,12 +1,11 @@
-import cv2
+import cv2,sys
 import numpy as np
 
 def countBlobs(fname):
-  img1 = cv2.imread(fname,1)
-  h,w,_ = img1.shape
-  img_s = cv2.resize(img1, (w/4,h/4))
+  img = cv2.imread(fname,1)
+  h,w,_ = img.shape
 
-  himg = cv2.cvtColor(img_s, cv2.COLOR_BGR2HSV)
+  himg = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
   print himg.shape
   hs = himg.copy()[:,:,:2]
   h,w,_ = hs.shape
@@ -14,10 +13,9 @@ def countBlobs(fname):
   hsv = np.concatenate((hs,v),axis=2)
   hsv_ = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
   print hsv.shape
-  cv2.imshow("result", hsv_)
-  cv2.waitKey(0)
+  cv2.imwrite('hs.jpg',hsv_)
 
 if __name__ == "__main__":
 
-  countBlobs('../img/img1.jpg') # straight on, large jar
+  countBlobs(sys.argv[1]) # straight on, large jar
 

@@ -1,0 +1,21 @@
+function [ newimg ] = highlight_removal( img, method )
+
+newimg = img;
+if strcmp(method, 'simple')
+    newimg = remove_simple(img);
+end
+
+end
+
+function [ newimg ] = remove_simple(img, maxd)
+    [m,n,~] = size(img);
+    newimg = zeros(m,n,3);
+    for i = 1:m
+        for j = 1:n
+            term = max(img(i,j)) - maxd*sum(img(i,j))
+            newimg(i,j) = img(i,j) - 
+            
+
+end
+
+
