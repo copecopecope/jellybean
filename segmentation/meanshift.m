@@ -1,4 +1,4 @@
-function [pts] = meanshift( img, h, max_num_iters, totalms_thresh, ndims, histcount )
+function [pts, totalms_array] = meanshift( img, h, max_num_iters, totalms_thresh, ndims, histcount )
 
 % ws = fix(window_size/2);
 [m,n,~] = size(img);
@@ -16,6 +16,7 @@ end
 
 converged = zeros(m,n);
 numconverged = 0;
+totalms_array = zeros(max_num_iters,1);
 
 fprintf('Num rows: %d\n',m);
 for k = 1:max_num_iters
@@ -46,6 +47,7 @@ for k = 1:max_num_iters
         end
     end
     fprintf('ITER %d COMPLETE, sum of shifts: %f\n', k, totalms)
+    totalms_array(k) = totalms;
     if totalms < totalms_thresh
         break
     end

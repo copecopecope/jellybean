@@ -1,8 +1,9 @@
 \documentclass[12pt]{article}
+\usepackage[margin=1.25in]{geometry}
 \usepackage{amsmath,enumerate,graphicx,algorithm,algorithmic,caption,subcaption}
 
 \begin{document}
-\title{Counting jelly beans: voxel carving and segmentation of container of heterogenous objects}
+\title{Counting jelly beans: voxel carving and segmentation of a container of heterogenous objects}
 \author{Alex Cope, Mark O'Meara}
 \date{March 2014}
 \maketitle
@@ -29,10 +30,13 @@ We tried multiple approaches for solving the segmentation problem. The difficult
 
 \subsubsection{Watershed}
 
-We tried a couple classic blob detectors to count the number of beans and found limited success. The watershed algorithm, developed by Lindeberg (1993), detects blobs using local extrema in the image space \cite{Wshed}. The
+We tried a couple classic blob detectors to count the number of beans and found limited success. The watershed algorithm, developed by Lindeberg (1993), detects blobs using local extrema in the image space \cite{Wshed}. We treat the grayscale image as a topographic surface, with lighter areas corresponding to maxima. Intuitively, we imagine flooding the topographic surface from its minima, and treat each resulting basin as a separate cluster. To reduce oversegmentation due to noise, we can flood the topographic surface from pre-defined markers. OpenCV contains an implementation of watershed but requires the markers to be passed in by the user; we wrote
 
 \subsubsection{Mean-shift}
 
+Intuitively, mean-shift seeks the modes of a feature space. That is, given a certain distribution in some feature space, mean-shift seeks the local maxima of the density of the distribution. Mean-shift associates a window around each data point, then computes the mean of the data within the window. It then shifts the window to its mean and repeats until the window location converges.
+
+Mean
 
 \section{Experiments}
 
@@ -84,9 +88,31 @@ However, we can mitigate this overestimate by culling the clusters using a simpl
 
 Quantitatively, we see that this cluster detection algorithm performs remarkably well (Fig.~\ref{fig:clusters}c). It is able to correctly count all but one jellybean on the front layer, and even correctly identifies some of the occluded jellybeans below the front layer.
 
+One difficulty with mean-shift is that the two user-defined parameters ($h$ and histogram count) drastically affect the final cluster output. There is no automatic way to tune these; one must simply inspect and tune them based on the output. If $h$ is too small, the algorithm will be too sensitive and it will detect too many clusters; also, the algorithm will take much longer to converge. On the other hand, if $h$ is too large, the algorithm will incorrectly merge distinct clusters.
 
+\begin{figure}
+    \centering
+  \begin{subfigure}[b]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{fig/ms3}
+      \caption{$h=.8$}
+  \end{subfigure}
+   \begin{subfigure}[b]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{fig/h05}
+      \caption{$h=.5$}
+  \end{subfigure}
+   \begin{subfigure}[b]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{fig/h12}
+      \caption{$h=1.2$}
+  \end{subfigure}
+  \caption{Mean-shift results using different values of $h$.}
+  \label{fig:h}
+  \end{figure}
+
+We see this demonstrated in Fig.~\ref{fig:h}. Fig.~\ref{fig:h}a-c show the algorithm run with $h =$ 0.8, 0.5, and 1.2 respectively. We see that with low $h$, clusters are more susceptible to noise and more likely to bisect jellybeans. With high $h$, multiple jellybeans are more likely to be clustered together.
 
 \section{Conclusion}
+
+Ultimately, 
 
 \begin{thebibliography}{9}
 
